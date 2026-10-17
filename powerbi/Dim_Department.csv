@@ -1,0 +1,5 @@
+DeptID,DepartmentName,Division,CostCenter,RegionalHQ
+101,Commercial & Field Sales,Revenue Operations,CC-101,Central Hub
+102,Plant & Operations,Manufacturing,CC-102,Industrial Zone
+103,Medical & R&D,Scientific Affairs,CC-103,Corporate HQ
+104,Corporate & HR,Shared Services,CC-104,Corporate HQ

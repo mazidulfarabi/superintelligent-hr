@@ -1,0 +1,42 @@
+/*
+================================================================================
+RETAINPULSE 360 - POWER BI DAX MEASURES CATALOG
+================================================================================
+Load Fact_Employee_Status and Dim_Department into Microsoft Power BI Desktop,
+create a relationship on [DeptID], and paste these measures into your Model View.
+*/
+
+// Measure 1: Average Department Flight Risk
+AvgFlightRiskIndex = 
+AVERAGE(Fact_Employee_Status[FlightRiskScore])
+
+// Measure 2: Total Exposure Replacement Cost (50% of annual salary for high-risk staff)
+TotalReplacementCostAtRisk = 
+CALCULATE(
+    SUM(Fact_Employee_Status[ReplacementCostUSD]),
+    Fact_Employee_Status[FlightRiskScore] >= 0.70
+)
+
+// Measure 3: High-Performer Retention Ratio (Stars & High Potentials with low flight risk)
+HighPerformerRetentionRate% = 
+VAR TotalHighTalent = 
+    CALCULATE(
+        COUNTROWS(Fact_Employee_Status),
+        Fact_Employee_Status[PerformanceScore] >= 4.0 || Fact_Employee_Status[PotentialScore] >= 4.0
+    )
+VAR RetainedHighTalent = 
+    CALCULATE(
+        COUNTROWS(Fact_Employee_Status),
+        (Fact_Employee_Status[PerformanceScore] >= 4.0 || Fact_Employee_Status[PotentialScore] >= 4.0) &&
+        Fact_Employee_Status[FlightRiskScore] < 0.60
+    )
+RETURN
+    DIVIDE(RetainedHighTalent, TotalHighTalent, 0)
+
+// Measure 4: Average Compa-Ratio (Market Salary Parity)
+AvgCompaRatio = 
+AVERAGE(Fact_Employee_Status[CompaRatio])
+
+// Measure 5: Average Days in Recruitment Pipeline
+AvgRecruitmentVelocityDays = 
+AVERAGE(Fact_Recruitment_Funnel[DaysInPipeline])

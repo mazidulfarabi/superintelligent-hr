@@ -1,0 +1,4 @@
+CandidateID,DeptID,TargetRole,Stage,SourcingChannel,BlindScreeningScore,DaysInPipeline
+CAN-4091,101,Senior Field Sales Executive,Interview Kit Generated,LinkedIn Recruiter,89,9
+CAN-5102,102,QC Formulation Chemist,Offer Extended,Direct University Referral,92,14
+CAN-6218,104,People Operations Lead,Technical Screen Passed,Corporate Career Portal,87,6

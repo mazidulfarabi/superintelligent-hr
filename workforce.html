@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetainPulse — Workforce Retention Monitor & Flight-Risk Engine</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pulse: {
+                            navy: '#0b192c',
+                            blue: '#1e3e62',
+                            accent: '#000000',
+                            green: '#10b981',
+                            amber: '#f59e0b',
+                            rose: '#ef4444'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PapaParse CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body class="bg-[#f8fafc] text-slate-900 antialiased min-h-screen flex flex-col font-sans">
+
+    <!-- Executive Navigation Header -->
+    <header class="bg-[#0b192c] text-white border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-black">
+                        <i class="fa-solid fa-heart-pulse text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-base tracking-tight text-white">RetainPulse <span class="text-emerald-400">360</span></span>
+                        <span class="text-[11px] text-slate-400 block font-medium">Predictive Workforce Retention Monitor</span>
+                    </div>
+                </div>
+
+                <!-- Right Action Buttons -->
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrow-left text-emerald-400"></i> TalentSphere CV Engine
+                    </a>
+                    <button onclick="exportPowerBIDataset()" class="text-xs font-semibold px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-download"></i> Power BI Dataset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+        <!-- Executive Header & Action Bar -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-2 inline-block">
+                    C-Suite People Analytics
+                </span>
+                <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Predictive Flight-Risk & Retention Engine</h1>
+                <p class="text-xs text-slate-500 mt-1">
+                    Continuously calculates flight risk from salary compa-ratio, tenure velocity, and check-in notes to trigger proactive 1-click stay plans.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="downloadSampleWorkforceCSV()" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold px-3 py-2 rounded-lg transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-file-csv text-emerald-600"></i> Get Template CSV
+                </button>
+                <button onclick="document.getElementById('csv-file-input').click()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-3.5 py-2 rounded-lg transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-cloud-arrow-up text-emerald-400"></i> Upload CSV Roster
+                </button>
+                <input type="file" id="csv-file-input" accept=".csv" class="hidden" onchange="handleCSVUpload(event)">
+            </div>
+        </div>
+
+        <!-- 3 Simple Risk Buckets (No Complex 9-Box Jargon!) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <!-- Bucket 1: High Flight Risk (Immediate Action) -->
+            <div onclick="filterByRiskTier('High')" class="bg-white p-5 rounded-2xl border-2 border-rose-200 shadow-sm cursor-pointer hover:border-rose-400 transition space-y-2">
+                <div class="flex justify-between items-center text-xs font-bold text-rose-700 uppercase">
+                    <span>🔴 High Flight Risk</span>
+                    <span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded text-[10px]">Action Needed</span>
+                </div>
+                <div class="text-3xl font-black text-rose-600" id="kpi-high-risk-count">3 Employees</div>
+                <p class="text-xs text-slate-500">Paid 15–20% below market median or stagnant in role >3 years.</p>
+                <div class="pt-2 border-t border-rose-100 text-[11px] font-semibold text-rose-700">
+                    Exposure: $42,000 replacement cost
+                </div>
+            </div>
+
+            <!-- Bucket 2: Moderate Risk (Monitor) -->
+            <div onclick="filterByRiskTier('Moderate')" class="bg-white p-5 rounded-2xl border-2 border-amber-200 shadow-sm cursor-pointer hover:border-amber-400 transition space-y-2">
+                <div class="flex justify-between items-center text-xs font-bold text-amber-700 uppercase">
+                    <span>🟡 Moderate Risk</span>
+                    <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-[10px]">Monitor</span>
+                </div>
+                <div class="text-3xl font-black text-amber-600" id="kpi-mod-risk-count">2 Employees</div>
+                <p class="text-xs text-slate-500">Workload strain or approaching 24-month promotion ceiling.</p>
+                <div class="pt-2 border-t border-amber-100 text-[11px] font-semibold text-amber-700">
+                    Action: Role rotation or skill training
+                </div>
+            </div>
+
+            <!-- Bucket 3: Stable Retention (Safe) -->
+            <div onclick="filterByRiskTier('Stable')" class="bg-white p-5 rounded-2xl border-2 border-emerald-200 shadow-sm cursor-pointer hover:border-emerald-400 transition space-y-2">
+                <div class="flex justify-between items-center text-xs font-bold text-emerald-800 uppercase">
+                    <span>🟢 Stable Retention</span>
+                    <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[10px]">Safe</span>
+                </div>
+                <div class="text-3xl font-black text-emerald-600" id="kpi-stable-risk-count">1 Employee</div>
+                <p class="text-xs text-slate-500">Competitive compensation ratio and high role engagement.</p>
+                <div class="pt-2 border-t border-emerald-100 text-[11px] font-semibold text-emerald-800">
+                    Status: Executive mentor candidate
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee Risk Roster Table -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-4">
+                <div>
+                    <h3 class="font-bold text-base text-slate-900">Employee Risk Roster & Immediate Solutions</h3>
+                    <p class="text-xs text-slate-500">Click "⚡ AI Retention Plan" to view root cause and 3-step intervention checklist</p>
+                </div>
+
+                <!-- Quick Filter Tabs -->
+                <div class="flex items-center gap-1.5 text-xs font-semibold">
+                    <button onclick="filterByRiskTier('ALL')" id="filter-all-btn" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white">All Staff</button>
+                    <button onclick="filterByRiskTier('High')" id="filter-high-btn" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">High Risk</button>
+                    <button onclick="filterByRiskTier('Moderate')" id="filter-mod-btn" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">Moderate</button>
+                    <button onclick="filterByRiskTier('Stable')" id="filter-stable-btn" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">Stable</button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase tracking-wider">
+                        <tr>
+                            <th class="p-3">Employee</th>
+                            <th class="p-3">Role & Dept</th>
+                            <th class="p-3">Flight Risk Level</th>
+                            <th class="p-3">Primary Why (Root Cause)</th>
+                            <th class="p-3 text-right">Instant Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody id="simple-employee-roster" class="divide-y divide-slate-100 font-medium text-slate-800">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Retention Modal -->
+    <div id="simple-retention-modal" class="hidden fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                    </span>
+                    <div>
+                        <h3 id="modal-employee-name" class="font-bold text-slate-900 text-sm">Employee Name</h3>
+                        <span id="modal-employee-sub" class="text-[11px] text-slate-400">Department</span>
+                    </div>
+                </div>
+                <button onclick="closeSimpleModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="modal-checklist-content" class="text-xs space-y-3">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="mt-5 pt-3 border-t border-slate-100 flex justify-end gap-2">
+                <button onclick="closeSimpleModal()" class="px-4 py-2 text-xs rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold">Close</button>
+                <button onclick="commitStayPlan()" class="px-4 py-2 text-xs rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold shadow-sm">
+                    <i class="fa-solid fa-check mr-1"></i> Commit Stay Plan to HR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <span>RetainPulse 360 • Predictive Workforce Retention Monitor</span>
+            <a href="index.html" class="text-slate-600 hover:text-emerald-600 font-semibold">Switch to TalentSphere CV Engine →</a>
+        </div>
+    </footer>
+
+    <!-- Dedicated JS for Workforce Retention -->
+    <script src="workforce.js"></script>
+</body>
+</html>

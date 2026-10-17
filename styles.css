@@ -1,0 +1,118 @@
+/* Minimalist Engine Aesthetic - Upwork Enterprise / Linear Style */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    --brand-green: #14a800;
+    --brand-green-dark: #108a00;
+    --brand-green-subtle: #f0fdf4;
+    --brand-dark: #001e00;
+    --border-color: #e5e7eb;
+    --bg-page: #fafbfc;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #0f172a;
+    background-color: var(--bg-page);
+    letter-spacing: -0.01em;
+}
+
+.font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Tab Navigation */
+.tab-btn.active-tab {
+    border-color: var(--brand-green);
+    color: var(--brand-green);
+    font-weight: 700;
+}
+
+.tab-btn.inactive-tab {
+    border-color: transparent;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.tab-btn.inactive-tab:hover {
+    color: #0f172a;
+    border-color: #cbd5e1;
+}
+
+/* Minimalist Upload Engine Zone */
+.engine-drop-zone {
+    border: 2px dashed #cbd5e1;
+    background: #ffffff;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.engine-drop-zone:hover, .engine-drop-zone.dragover {
+    border-color: var(--brand-green);
+    background-color: #f6fdf6;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px -5px rgba(20, 168, 0, 0.08);
+}
+
+/* Clean Button System */
+.btn-engine {
+    background-color: var(--brand-green);
+    color: #ffffff;
+    font-weight: 600;
+    transition: all 0.15s ease-in-out;
+}
+.btn-engine:hover {
+    background-color: var(--brand-green-dark);
+    box-shadow: 0 4px 12px rgba(20, 168, 0, 0.2);
+}
+
+.btn-ghost {
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
+    transition: all 0.15s ease-in-out;
+}
+.btn-ghost:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+/* Role Match Card */
+.role-card {
+    transition: all 0.15s ease;
+}
+.role-card:hover {
+    border-color: var(--brand-green);
+}
+.role-card.best-fit {
+    border-color: var(--brand-green);
+    background-color: #f6fdf6;
+}
+
+/* Simple Risk Badge */
+.risk-pill-high {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+.risk-pill-moderate {
+    background-color: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+.risk-pill-stable {
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+/* Redaction marker */
+.redacted-tag {
+    background-color: #0f172a;
+    color: #38bdf8;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+}

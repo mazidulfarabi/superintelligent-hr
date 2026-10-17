@@ -1,0 +1,7 @@
+EmployeeID,DeptID,EmployeeName,Role,CompaRatio,TenureMonths,FlightRiskScore,PerformanceScore,PotentialScore,NineBoxQuadrant,SalaryUSD,ReplacementCostUSD
+EMP-1042,101,Tanvir Ahmed,Territory Sales Lead,0.81,45,0.88,4.5,4.8,Stars,28000,14000
+EMP-0855,104,Sumaiya Rahman,Senior HR Specialist,0.94,50,0.24,4.2,3.4,High Performers,35000,17500
+EMP-2190,102,Arifur Islam,QC Chemist,0.84,35,0.76,3.6,4.5,High Potentials,24000,12000
+EMP-3004,103,Dr. Nusrat Jahan,Medical Affairs Manager,1.02,61,0.31,4.1,2.8,Trusted Professionals,48000,24000
+EMP-1420,101,Kamrul Hasan,Medical Representative,0.79,22,0.82,2.8,4.2,Enigmas,18000,9000
+EMP-2511,102,Mahmudul Haque,Maintenance Engineer,0.91,38,0.48,3.4,3.1,Core Players,26000,13000

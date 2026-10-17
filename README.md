@@ -2,8 +2,9 @@
 
 TalentSphere AI and RetainPulse 360 are two complementary, client-side web tools designed for enterprise recruitment screening and predictive employee retention.
 
-* **TalentSphere AI**: [Live Demo](index.html) (or `https://<your-site>.netlify.app/`)
-* **RetainPulse 360**: [Live Demo](workforce.html) (or `https://<your-site>.netlify.app/workforce.html`)
+* **Live Deployment**: [https://superintelligenthr.netlify.app](https://superintelligenthr.netlify.app)
+* **TalentSphere AI**: [Live Demo](https://superintelligenthr.netlify.app/) (or local `index.html`)
+* **RetainPulse 360**: [Live Demo](https://superintelligenthr.netlify.app/workforce.html) (or local `workforce.html`)
 
 ---
 
@@ -169,7 +170,7 @@ erDiagram
 ## File Structure
 
 ```
-c:\ai-hr\
+c:\superintelligent-hr\
 ├── index.html                     # TalentSphere AI standalone web application
 ├── talentsphere.js                # PDF.js text parser and skill match engine
 ├── workforce.html                 # RetainPulse 360 standalone web application
